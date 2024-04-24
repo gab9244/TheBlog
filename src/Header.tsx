@@ -4,9 +4,9 @@ const Header = () => {
 
   return (
     <header>
-      <a href="/" className="Logo">
+      <Link to={'/'} className="Logo">
         <h1>MyBlog</h1>
-      </a>
+      </Link>
       <nav className="registration">
         <Link to="/login">Login</Link>
         <Link to="/">Register</Link>
