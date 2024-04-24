@@ -1,4 +1,3 @@
-import React from "react";
 import LayOut from "./LayOut";
 import { Routes, Route } from "react-router-dom";
 import Section from "./Sections";
