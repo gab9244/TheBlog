@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { formatISO9075 } from "date-fns";
 import { UserContext } from "./UserContext";
+const apiURL = import.meta.env.VITE_REACT_APP_API_URL
 
 const PostPage = () => {
   const [postInfo, setPostInfo] = useState(null);
@@ -10,7 +11,7 @@ const PostPage = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    fetch(`http://localhost:4000/post/${id}`).then((response) => {
+    fetch(`${apiURL}/post/${id}`).then((response) => {
       response.json().then((postInfo) => {
         setPostInfo(postInfo);
       });
@@ -29,7 +30,7 @@ const PostPage = () => {
         </div>
       )}
       <div className="image">
-        <img src={`http://localhost:4000/${postInfo.cover}`} alt="" />
+        <img src={`${apiURL}/${postInfo.cover}`} alt="" />
       </div>
 
       <div dangerouslySetInnerHTML={{ __html: postInfo.content }} />

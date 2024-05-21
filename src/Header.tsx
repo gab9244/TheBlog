@@ -2,13 +2,17 @@ import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from './UserContext';
 
+//Para usar uma variavel ambiental no react vite é necessário primeiro ir no arquivo .env e colocar antes de cada variavel ambiental que usamos no react vite VITE_ em seguida quando formos usar essa variavel ambiental temos que usar import.meta ao inves de process.env
+const apiURL = import.meta.env.VITE_REACT_APP_API_URL
+
+
 const Header =  () => {
   //Aqui usaremos context do react para passar os dados do usuario para outros componentes, para isso funcionar usaremos state variables.
   //Caso consigamos pegar os dados do usuario eles seram armazenados em userInfo e quando deslogamos limparemos os dados fazendo com que o valor de userInfo seja null
   const { userInfo, setUserInfo } = useContext(UserContext);
 
   useEffect(() => { 
-    fetch("http://localhost:4000/profile", {
+    fetch(`${apiURL}/profile`, {
       credentials: "include",
     }).then((response) => {
       response.json().then((userInfo) => {
@@ -18,7 +22,7 @@ const Header =  () => {
   },[]);
 
   const Logout = () => {
-    fetch("http://localhost:4000/logout", {
+    fetch(`${apiURL}/logout`, {
       credentials: "include",
       method: "POST",
     });

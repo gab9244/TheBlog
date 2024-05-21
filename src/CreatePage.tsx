@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { Navigate } from "react-router-dom";
+const apiURL = import.meta.env.VITE_REACT_APP_API_URL
 
 // CreatePost envia uma solicitação fetch onde
 const CreatePost = () => {
@@ -22,7 +23,7 @@ const CreatePost = () => {
     ev.preventDefault();
 
     //Mandamos uma solicitação post para post onde enviamos os dados do formúlario caso a responta seja ok mudamos o valor da state variable redirect para true e então enviamos o usúario para o root usando Navigate
-    const response = await fetch("http://localhost:4000/post", {
+    const response = await fetch(`${apiURL}/post`, {
       method: 'POST',
       body: data,
       credentials: 'include',

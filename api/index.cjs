@@ -7,6 +7,8 @@ const  cors = require('cors')
 const User = require('./models/User.cjs')
 const Post = require('./models/Post.cjs')
 const app = express()
+
+
 const jwt = require('jsonwebtoken')
 //É necessário baixar o cookie-parser
 const cookieParser = require('cookie-parser')
@@ -170,6 +172,7 @@ app.get('/post', async (req,res)=>{
 
 })
 
+//2
 app.get('/post/:id', async(req,res) =>{
 
     const {id} = req.params
@@ -177,9 +180,11 @@ app.get('/post/:id', async(req,res) =>{
   res.json(postDoc)
 })
 
-const port = 4000
+
+const port = process.env.PORT || 4000;
 const start = async () =>{
     try {
+
        await connectDB(process.env.MONGO_URI)
        app.listen(port, ()=>{
            console.log(`The Server is On ${port}`)

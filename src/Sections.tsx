@@ -1,5 +1,7 @@
 import { parseISO, formatISO9075 } from "date-fns";
 import { Link } from "react-router-dom";
+const apiURL = import.meta.env.VITE_REACT_APP_API_URL
+
 //Instale data-fns com ele podemos mostrar a quando um post foi criado de uma maneira mais legivel
 //Aqui criamos cada seção e usando desestruturação de objeto estraimos as informações da api post.Primeiro pegamos titulo,resumo,
 const Section = ({_id, title, summary, cover, createdAt, author }) => {
@@ -9,7 +11,7 @@ const Section = ({_id, title, summary, cover, createdAt, author }) => {
       <Link to={`/post/${_id}`}>
         <img
           //Usando essa url podemos mostrar as imagens de cada post
-          src={"http://localhost:4000/" + cover}
+          src={`${apiURL}/` + cover}
           alt="coding"
         
         />

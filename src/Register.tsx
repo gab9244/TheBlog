@@ -1,4 +1,5 @@
 import { useState } from "react";
+const apiURL = import.meta.env.VITE_REACT_APP_API_URL
 
 const RegisterPage = () => {
   //Usaremos as state variable para poder mudar os valores que enviaremos ao banco de dados facilmente
@@ -9,7 +10,7 @@ const RegisterPage = () => {
 
   const register = async (ev: { preventDefault: () => void }) => {
     ev.preventDefault();
-    const response = await fetch("http://localhost:4000/register", {
+    const response = await fetch(`${apiURL}/register`, {
       method: "POST",
       body: JSON.stringify({ username, password }),
       headers: { "Content-Type": "application/json" },

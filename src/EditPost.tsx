@@ -1,6 +1,7 @@
 import { Editor } from "@tinymce/tinymce-react";
 import { useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
+const apiURL = import.meta.env.VITE_REACT_APP_API_URL
 
 const EditPost = () => {
   const { id } = useParams();
@@ -11,7 +12,7 @@ const EditPost = () => {
   const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
-    fetch('http://localhost:4000/post/'+id)
+    fetch(`${apiURL}/post/`+id)
     .then(response => {
           response.json().then(postInfo =>{
             setTitle(postInfo.title)
@@ -35,7 +36,7 @@ const EditPost = () => {
       data.set("file", files?.[0]);
     }
 
-   const response = await fetch('http://localhost:4000/post', {
+   const response = await fetch(`${apiURL}/post`, {
       method : 'PUT',
       body: data,
       credentials: 'include',
