@@ -1,5 +1,4 @@
 const express = require('express')
-
 //Usamos bcrypt para criptografar as senhas do usuarios.É necessário baixar o bcrypt com npm install bcrypt
 const bcrypt = require('bcrypt')
 //Cors é usado para simplificar o envio de dados por varias fontes. É necessário usa-lo pois os browsers geralmente dificultam o compatilamento e envio de dados e é por isso que o usamos no express.use()
@@ -8,6 +7,7 @@ const User = require('./models/User.cjs')
 const Post = require('./models/Post.cjs')
 const app = express()
 
+require('dotenv').config()
 
 const jwt = require('jsonwebtoken')
 //É necessário baixar o cookie-parser
@@ -20,16 +20,30 @@ const uploadMiddleware = multer({dest: 'api/uploads/'})
 const fs = require('fs')
 //Usamos salt para criptografar a senha
 const salt = bcrypt.genSaltSync(10)
-const secret = 'fvdfg3434fgdff4dfher4teg'
+// const secret ='fvdfg3434fgdff4dfher4teg'
+
+
 //Quando lidamos com credenciais/senhas e tokens é necessário colocar mais informações como definir o valor de credentials para true e fornecer a origem das solicitações http://localhost:5173
-app.use(cors({credentials: true, origin: 'http://localhost:5173'}))
+//Se for local mude o valor de origin para 5173
+app.use(cors({credentials: true, origin:'http://localhost:5173'}))
 app.use(express.json())
 app.use(cookieParser())
 //Usamos essa sintaxe para poder mostrar as imagens
 app.use('/api/uploads', express.static('api/uploads/'));
-require('dotenv').config()
+
+const secret = process.env.SECRET
 //Usando mongoose.connect junto da chave podemos nos conectar ao banco de dados do atlas
 const connectDB = require('../api/db/connect.cjs')
+
+
+//Use the client app
+//Para pegar o caminho absoluto até o root to meu projeto é necessário usar process.cwd()
+//Remova essas duas linhas para que o projeto volte a funcionar localmente
+// app.use(express.static(path.join(process.cwd(), 'dist')))
+// app.get('*', (req,res) => res.sendFile(path.join(process.cwd(), 'dist', 'index.html')))
+
+
+
 
 //Essa solicitação post funciona da seguinte maneira. Primeiro pegamos do corpo da solicitação o username e a password, depois usamos try e catch e caso esse dados passem pelas especificações que fizemos no User.cjs enviamos um status de 200 e os dados ao banco de dados, caso contrario apenas retornamos status 400 e um json com o erro
 app.post('/register', async (req,res) =>{
