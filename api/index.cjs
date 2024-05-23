@@ -6,7 +6,7 @@ const  cors = require('cors')
 const User = require('./models/User.cjs')
 const Post = require('./models/Post.cjs')
 const app = express()
-
+const path = require('path')
 require('dotenv').config()
 
 const jwt = require('jsonwebtoken')
@@ -20,16 +20,18 @@ const uploadMiddleware = multer({dest: 'api/uploads/'})
 const fs = require('fs')
 //Usamos salt para criptografar a senha
 const salt = bcrypt.genSaltSync(10)
-// const secret ='fvdfg3434fgdff4dfher4teg'
 
 
 //Quando lidamos com credenciais/senhas e tokens é necessário colocar mais informações como definir o valor de credentials para true e fornecer a origem das solicitações http://localhost:5173
 //Se for local mude o valor de origin para 5173
-app.use(cors({credentials: true, origin:'http://localhost:5173'}))
+app.use(cors({credentials: true, origin:'http://localhost:4000/'}))
 app.use(express.json())
 app.use(cookieParser())
 //Usamos essa sintaxe para poder mostrar as imagens
-app.use('/api/uploads', express.static('api/uploads/'));
+// app.use('/api/uploads', express.static('api/uploads/'));
+app.use('/api/uploads', express.static(path.join(process.cwd(), 'api/uploads/')));
+
+console.log(path.join(process.cwd(), 'api/uploads/'))
 
 const secret = process.env.SECRET
 //Usando mongoose.connect junto da chave podemos nos conectar ao banco de dados do atlas
@@ -39,11 +41,7 @@ const connectDB = require('../api/db/connect.cjs')
 //Use the client app
 //Para pegar o caminho absoluto até o root to meu projeto é necessário usar process.cwd()
 //Remova essas duas linhas para que o projeto volte a funcionar localmente
-// app.use(express.static(path.join(process.cwd(), 'dist')))
-// app.get('*', (req,res) => res.sendFile(path.join(process.cwd(), 'dist', 'index.html')))
-
-
-
+app.use(express.static(path.join(process.cwd(), 'dist')))
 
 //Essa solicitação post funciona da seguinte maneira. Primeiro pegamos do corpo da solicitação o username e a password, depois usamos try e catch e caso esse dados passem pelas especificações que fizemos no User.cjs enviamos um status de 200 e os dados ao banco de dados, caso contrario apenas retornamos status 400 e um json com o erro
 app.post('/register', async (req,res) =>{
@@ -193,6 +191,7 @@ app.get('/post/:id', async(req,res) =>{
   const postDoc =  await (await Post.findById(id)).populate('author', ['username'])
   res.json(postDoc)
 })
+app.get('*', (req,res) => res.sendFile(path.join(process.cwd(), 'dist/index.html')))
 
 
 const port = process.env.PORT || 4000;
