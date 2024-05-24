@@ -198,7 +198,8 @@ const port = process.env.PORT || 4000;
 const start = async () =>{
     try {
        await connectDB(process.env.MONGO_URI)
-       app.listen(port, ()=>{
+       //Change it back to port
+       app.listen(process.env.VITE_REACT_APP_API_URL, ()=>{
            console.log(`The Server is On ${port}`)
        })
     } catch (error) {
