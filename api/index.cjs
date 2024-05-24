@@ -24,7 +24,7 @@ const salt = bcrypt.genSaltSync(10)
 
 //Quando lidamos com credenciais/senhas e tokens é necessário colocar mais informações como definir o valor de credentials para true e fornecer a origem das solicitações http://localhost:5173
 //Se for local mude o valor de origin para 5173
-app.use(cors({credentials: true, origin:`${process.env.VITE_REACT_APP_API_URL}`}))
+app.use(cors({credentials: true, origin:`https://theblog-self.vercel.app/`}))
 app.use(express.json())
 app.use(cookieParser())
 //Usamos essa sintaxe para poder mostrar as imagens
@@ -194,10 +194,9 @@ app.get('/post/:id', async(req,res) =>{
 app.get('*', (req,res) => res.sendFile(path.join(process.cwd(), 'dist/index.html')))
 
 
-const port = process.env.PORT || 4000;
+const port = process.env.VITE_REACT_APP_API_URL || 4000;
 const start = async () =>{
     try {
-
        await connectDB(process.env.MONGO_URI)
        app.listen(port, ()=>{
            console.log(`The Server is On ${port}`)
