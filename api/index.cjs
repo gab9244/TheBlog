@@ -194,7 +194,7 @@ app.get('/post/:id', async(req,res) =>{
 app.get('*', (req,res) => res.sendFile(path.join(process.cwd(), 'dist/index.html')))
 
 
-const port = process.env.VITE_REACT_APP_API_URL || 4000;
+const port = process.env.PORT || 4000;
 const start = async () =>{
     try {
        await connectDB(process.env.MONGO_URI)
