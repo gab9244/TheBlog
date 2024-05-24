@@ -24,7 +24,7 @@ const salt = bcrypt.genSaltSync(10)
 
 //Quando lidamos com credenciais/senhas e tokens é necessário colocar mais informações como definir o valor de credentials para true e fornecer a origem das solicitações http://localhost:5173
 //Se for local mude o valor de origin para 5173
-app.use(cors({credentials: true, origin:'http://localhost:4000/'}))
+app.use(cors({credentials: true, origin:`${process.env.VITE_REACT_APP_API_URL}`}))
 app.use(express.json())
 app.use(cookieParser())
 //Usamos essa sintaxe para poder mostrar as imagens
