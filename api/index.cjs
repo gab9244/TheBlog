@@ -24,7 +24,7 @@ const salt = bcrypt.genSaltSync(10)
 
 //Quando lidamos com credenciais/senhas e tokens é necessário colocar mais informações como definir o valor de credentials para true e fornecer a origem das solicitações http://localhost:5173
 //Se for local mude o valor de origin para 5173
-const allowedOrigins = ['https://theblog-cekp.onrender.com'];
+const allowedOrigins = ['https://theblog-cekp.onrender.com','https://theblog-1.onrender.com','http://localhost:4000/'];
 
 
 app.use(cors({
@@ -219,5 +219,5 @@ const start = async () =>{
     }
    }
    
-   start()
+start()
 
