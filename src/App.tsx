@@ -1,8 +1,8 @@
-import LayOut from "./LayOut";
+import LayOut from "./LayOut.js";
 import { Routes, Route } from "react-router-dom";
-import LoginPage from "./Login";
-import RegisterPage from "./Register";
-import { UserContextProvider } from "./UserContext.jsx";
+import LoginPage from "./Login.js";
+import RegisterPage from "./Register.js";
+import { UserContextProvider } from "./UserContext.js";
 import CreatePost from "./CreatePage.js";
 import IndexPage from "./IndexPage.js";
 import PostPage from "./PostPage.js";
