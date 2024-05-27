@@ -8,5 +8,5 @@
     "esModuleInterop": true,
     "strict": true,
   },
-  "include": ["client/vite.config.ts"]
+  "include": ["vite.config.ts"]
 }

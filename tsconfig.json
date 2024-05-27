@@ -26,6 +26,6 @@
     "noFallthroughCasesInSwitch": true
 
   },
-  "include": ["client/src", "api"],
+  "include": ["src", "api"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -1,10 +1,10 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: "", // Ensure the trailing slash
+  base: "", // Ensure the trailing slash if deploying to a subdirectory
   server: {
     proxy: {
       '/api': {
@@ -13,5 +13,8 @@ export default defineConfig({
         secure: true,
       }
     }
-  }
+  },
+  build: {
+    outDir: 'dist', // Ensure the output directory is correct
+  },
 })
