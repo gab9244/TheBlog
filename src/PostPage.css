@@ -36,9 +36,7 @@ p {
     font-size: 18px;
 }
 
-.postPage a {
-    text-decoration: underline;
-}
+
 
 .editLink {
     display: flex;
@@ -54,9 +52,37 @@ p {
 
 .editLink a {
     color: white;
-    text-decoration: none;
+
 
 
 }
 
-@media screen and (min-width: 768px) {}
+.decisionButtons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+
+}
+
+.deleteButton {
+    cursor: pointer;
+    font-weight: bolder;
+    font-size: 17px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.deleteButton:hover {
+    background-color:#d6341f;
+}
+.decisionButtons button {
+    box-shadow: 0 9px #999;
+}
+.decisionButtons button:active {
+    background-color: #d6341f;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+    outline: none;
+    
+  }

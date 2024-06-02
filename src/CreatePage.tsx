@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Editor } from "@tinymce/tinymce-react";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 import { Navigate } from "react-router-dom";
-const apiURL = import.meta.env.VITE_REACT_APP_API_URL
+const apiURL = import.meta.env.VITE_REACT_APP_API_URL;
 
 // CreatePost envia uma solicitação fetch onde
 const CreatePost = () => {
@@ -13,7 +14,7 @@ const CreatePost = () => {
   const [redirect, setRedirect] = useState(false);
   const createNewPost = async (ev) => {
     //FormData é usado para construir um conjundo de chaves e valores que representam campos de formularios e seus valores, basicamente um objeto que facilita o envio de dados de formularios via solicitação HTTP
-    //No nosso caso usamos o FormData para enviar os dados do formulario para a api post, como pode vewr criamos a variavel data e para cada campo criamos uma chave e como valor damos as state variables com o valor dos campos 
+    //No nosso caso usamos o FormData para enviar os dados do formulario para a api post, como pode vewr criamos a variavel data e para cada campo criamos uma chave e como valor damos as state variables com o valor dos campos
 
     const data = new FormData();
     data.set("title", title);
@@ -24,9 +25,9 @@ const CreatePost = () => {
 
     //Mandamos uma solicitação post para post onde enviamos os dados do formúlario caso a responta seja ok mudamos o valor da state variable redirect para true e então enviamos o usúario para o root usando Navigate
     const response = await fetch(`${apiURL}/post`, {
-      method: 'POST',
+      method: "POST",
       body: data,
-      credentials: 'include',
+      credentials: "include",
     });
     if (response.ok) {
       setRedirect(true);
@@ -35,6 +36,36 @@ const CreatePost = () => {
   if (redirect) {
     return <Navigate to={"/"} />;
   }
+
+  const modules = {
+    toolbar: [
+      [{ header: "1" }, { header: "2" }, { font: [] }],
+      [{ list: "ordered" }, { list: "bullet" }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [{ script: "sub" }, { script: "super" }],
+      [{ indent: "-1" }, { indent: "+1" }, { direction: "rtl" }],
+      [{ size: ["small", false, "large", "huge"] }],
+      ["link", "image", "video"],
+      ["clean"],
+    ],
+  };
+
+  const formats = [
+    "header",
+    "font",
+    "size",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+    "image",
+    "video",
+  ];
   return (
     // Quando enviamos o formularío a função createNewPost sera executada
     <form className="CreatePost" onSubmit={createNewPost}>
@@ -54,28 +85,12 @@ const CreatePost = () => {
       />
       {/* O usuário usarar o input do tipo file para pegar a imagem sobre o conteúdo do post que ele escreverá */}
       <input type="file" onChange={(ev) => setFiles(ev.target.files)} />
-      {/* Para termos mais contro-le na hora de escrever usaremos um editor popular chamado de tinymce  */}
-      <Editor
-        apiKey="id8j23ghu2p0ywt03er7vo2q3md82l625n16u5ce7a20ecjh"
+      {/* Quill é um editor popular open source então ele acaba sendo uma das melhores opções */}
+      <ReactQuill
         value={content}
-        //É necessário substituir onChange por onEditorChange por causa da api que estamos usando
-        onEditorChange={(newValue) => setContent(newValue)}
-        init={{
-          plugins:
-            "anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown",
-          toolbar:
-            "undo redo |formatselect | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
-          tinycomments_mode: "embedded",
-          tinycomments_author: "Author name",
-          mergetags_list: [
-            { value: "First.Name", title: "First Name" },
-            { value: "Email", title: "Email" },
-          ],
-          ai_request: (_request, respondWith) =>
-            respondWith.string(() =>
-              Promise.reject("See docs to implement AI Assistant")
-            ),
-        }}
+        onChange={(newValue) => setContent(newValue)}
+        modules={modules}
+        formats={formats}
       />
       <button>Create a new Post</button>
     </form>

@@ -19,7 +19,7 @@ const App = () => {
           <Route path="/register" index element={<RegisterPage />} />
           <Route path="/create" index element = {<CreatePost/>}/>
           <Route path="/post/:id" element = {<PostPage />} />
-          <Route path="/edit/:id" element = {<EditPost /> }></Route>
+          <Route path="/edit/:id" element = {<EditPost />}></Route>
         </Route>
       </Routes>
     </UserContextProvider>

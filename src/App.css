@@ -1,10 +1,10 @@
 * {
     padding: 0;
     margin: 0;
-    overflow-x: hidden;
     font-family: sans-serif;
-    
+
 }
+
 a {
     text-decoration: none;
     color: black;
@@ -14,19 +14,22 @@ body {
     padding: 20px;
     height: 100vh;
     width: 100vw;
+    overflow-x: hidden;
 }
+
 header {
     display: flex;
     justify-content: space-around;
     height: 100px;
     width: 100%;
     align-items: center;
-    
+
 }
 
 .logout {
     cursor: pointer;
 }
+
 .registration {
     display: flex;
     gap: 20px;
@@ -43,33 +46,39 @@ main {
 section p {
     width: 400px;
 }
+ h2 {
+    width: 400px;
+ }
 
 .context {
     padding-left: 20px;
 }
+
 .info {
     display: flex;
+    align-items: center;
     padding: 10px;
     gap: 10px;
 }
 
 .ToPage {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
 
 }
 
 section img {
     width: 400px;
-   
 }
+
 .CreatePost {
     display: flex;
     flex-direction: column;
     gap: 20px;
     width: 90%;
 }
+
 .CreatePost button {
     height: 40px;
     text-align: center;
@@ -79,18 +88,33 @@ section img {
     transition: 0.3s;
     cursor: pointer;
 }
- input {
-    
+
+input {
     height: 40px;
     font-size: 20px;
-    
-    
 }
 
 
-@media screen and (min-width: 768px){
+@media screen and (max-width: 768px) {
     .ToPage {
-        flex-direction: row;
+        flex-direction: column;
         align-items: center;
+    }
+
+    header {
+        flex-direction: column
+    }
+
+    .CreatePost {
+        width: 400px;
+    }
+    .ToPage {
+       text-align: center;
+    }
+    .info {
+        flex-direction: column;
+    }
+     h2 {
+       width: 400px; 
     }
 }

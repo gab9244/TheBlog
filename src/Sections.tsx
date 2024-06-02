@@ -11,7 +11,7 @@ const Section = ({_id, title, summary, cover, createdAt, author }) => {
       <Link to={`/post/${_id}`}>
         <img
           //Usando essa url podemos mostrar as imagens de cada post
-          src={`${apiURL}/` + cover}
+          src={`${apiURL}` + cover}
           alt="coding"
         
         />
@@ -23,6 +23,7 @@ const Section = ({_id, title, summary, cover, createdAt, author }) => {
         </Link>
 
         <div className="info">
+          {/* Por algum motivo a propriedade de author username não esta sendo reconhecida author.username */}
           <a className="author">{author.username}</a>
           {/* Usamos essa sintaxe para pegar o tempo em que o post foi criado, createdAt tem como valor a data e hore em que o documento foi salvo pela primeira vez */}
           <time>{formatISO9075(parseISO(createdAt))}</time>
