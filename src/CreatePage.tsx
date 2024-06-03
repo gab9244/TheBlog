@@ -1,6 +1,7 @@
 import { useState } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import 'froala-editor/js/froala_editor.pkgd.min.js';
+import 'froala-editor/css/froala_editor.pkgd.min.css';
+import FroalaEditorComponent from 'react-froala-wysiwyg'; 
 import { Navigate } from "react-router-dom";
 const apiURL = import.meta.env.VITE_REACT_APP_API_URL;
 
@@ -36,36 +37,6 @@ const CreatePost = () => {
   if (redirect) {
     return <Navigate to={"/"} />;
   }
-
-  const modules = {
-    toolbar: [
-      [{ header: "1" }, { header: "2" }, { font: [] }],
-      [{ list: "ordered" }, { list: "bullet" }],
-      ["bold", "italic", "underline", "strike", "blockquote"],
-      [{ script: "sub" }, { script: "super" }],
-      [{ indent: "-1" }, { indent: "+1" }, { direction: "rtl" }],
-      [{ size: ["small", false, "large", "huge"] }],
-      ["link", "image", "video"],
-      ["clean"],
-    ],
-  };
-
-  const formats = [
-    "header",
-    "font",
-    "size",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "blockquote",
-    "list",
-    "bullet",
-    "indent",
-    "link",
-    "image",
-    "video",
-  ];
   return (
     // Quando enviamos o formularío a função createNewPost sera executada
     <form className="CreatePost" onSubmit={createNewPost}>
@@ -86,11 +57,9 @@ const CreatePost = () => {
       {/* O usuário usarar o input do tipo file para pegar a imagem sobre o conteúdo do post que ele escreverá */}
       <input type="file" onChange={(ev) => setFiles(ev.target.files)} />
       {/* Quill é um editor popular open source então ele acaba sendo uma das melhores opções */}
-      <ReactQuill
-        value={content}
-        onChange={(newValue) => setContent(newValue)}
-        modules={modules}
-        formats={formats}
+      <FroalaEditorComponent
+        model={content}
+        onModelChange={(newValue) => setContent(newValue)}
       />
       <button>Create a new Post</button>
     </form>
