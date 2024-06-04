@@ -1,7 +1,8 @@
 import { useState } from "react";
-import 'froala-editor/js/froala_editor.pkgd.min.js';
-import 'froala-editor/css/froala_editor.pkgd.min.css';
-import FroalaEditorComponent from 'react-froala-wysiwyg'; 
+// import 'froala-editor/js/froala_editor.pkgd.min.js';
+// import 'froala-editor/css/froala_editor.pkgd.min.css';
+// import FroalaEditorComponent from 'react-froala-wysiwyg'; 
+import { Editor } from "@tinymce/tinymce-react";
 import { Navigate } from "react-router-dom";
 const apiURL = import.meta.env.VITE_REACT_APP_API_URL;
 
@@ -57,9 +58,31 @@ const CreatePost = () => {
       {/* O usuário usarar o input do tipo file para pegar a imagem sobre o conteúdo do post que ele escreverá */}
       <input type="file" onChange={(ev) => setFiles(ev.target.files)} />
       {/* Quill é um editor popular open source então ele acaba sendo uma das melhores opções */}
-      <FroalaEditorComponent
+      {/* <FroalaEditorComponent
         model={content}
         onModelChange={(newValue) => setContent(newValue)}
+      /> */}
+       <Editor
+        apiKey="id8j23ghu2p0ywt03er7vo2q3md82l625n16u5ce7a20ecjh"
+        value={content}
+        //É necessário substituir onChange por onEditorChange por causa da api que estamos usando
+        onEditorChange={(newValue) => setContent(newValue)}
+        init={{
+          plugins:
+            "anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown",
+          toolbar:
+            "undo redo |formatselect | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
+          tinycomments_mode: "embedded",
+          tinycomments_author: "Author name",
+          mergetags_list: [
+            { value: "First.Name", title: "First Name" },
+            { value: "Email", title: "Email" },
+          ],
+          ai_request: (_request, respondWith) =>
+            respondWith.string(() =>
+              Promise.reject("See docs to implement AI Assistant")
+            ),
+        }}
       />
       <button>Create a new Post</button>
     </form>
