@@ -41,6 +41,7 @@
     "redux": "^5.0.1",
     "suneditor": "^2.46.3",
     "suneditor-react": "^3.6.1",
+    "trix": "^2.1.1",
     "vite-plugin-env-compatible": "^2.0.1"
   },
   "devDependencies": {
