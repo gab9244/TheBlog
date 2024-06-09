@@ -31,6 +31,7 @@ const PostPage = () => {
       try {
         const response = await fetch(`${apiURL}/post/${id}`, {
           method: "DELETE",
+          credentials: "include",
         });
         if (response.ok) {
           alert("Post deleted successfully");
