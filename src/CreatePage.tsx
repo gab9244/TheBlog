@@ -1,8 +1,8 @@
 import { useState } from "react";
-// import 'froala-editor/js/froala_editor.pkgd.min.js';
-// import 'froala-editor/css/froala_editor.pkgd.min.css';
-// import FroalaEditorComponent from 'react-froala-wysiwyg'; 
-import { Editor } from "@tinymce/tinymce-react";
+import 'froala-editor/js/froala_editor.pkgd.min.js';
+import 'froala-editor/css/froala_editor.pkgd.min.css';
+import FroalaEditorComponent from 'react-froala-wysiwyg'; 
+// import { Editor } from "@tinymce/tinymce-react";
 import { Navigate } from "react-router-dom";
 const apiURL = import.meta.env.VITE_REACT_APP_API_URL;
 
@@ -58,11 +58,11 @@ const CreatePost = () => {
       {/* O usuário usarar o input do tipo file para pegar a imagem sobre o conteúdo do post que ele escreverá */}
       <input type="file" onChange={(ev) => setFiles(ev.target.files)} />
       {/* Quill é um editor popular open source então ele acaba sendo uma das melhores opções */}
-      {/* <FroalaEditorComponent
+      <FroalaEditorComponent
         model={content}
         onModelChange={(newValue) => setContent(newValue)}
-      /> */}
-       <Editor
+      />
+       {/* <Editor
         apiKey="id8j23ghu2p0ywt03er7vo2q3md82l625n16u5ce7a20ecjh"
         value={content}
         //É necessário substituir onChange por onEditorChange por causa da api que estamos usando
@@ -83,7 +83,7 @@ const CreatePost = () => {
               Promise.reject("See docs to implement AI Assistant")
             ),
         }}
-      />
+      /> */}
       <button>Create a new Post</button>
     </form>
   );
