@@ -12,13 +12,33 @@ const PostPage = () => {
   //Usaremos useParams para pegar o parâmetro id da URL
   const { id } = useParams();
 
+  // useEffect(() => {
+  //   fetch(`${apiURL}/post/${id}`).then((response) => {
+  //     response.json().then((postInfo) => {
+  //       setPostInfo(postInfo);
+  //     });
+  //   });
+  // }, []);
   useEffect(() => {
-    fetch(`${apiURL}/post/${id}`).then((response) => {
-      response.json().then((postInfo) => {
-        setPostInfo(postInfo);
-      });
+    fetch(`${apiURL}/post/${id}`, {
+      credentials: 'include', // This ensures cookies are sent
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then((postInfo) => {
+      setPostInfo(postInfo);
+    })
+    .catch((error) => {
+      console.error('There was a problem with your fetch operation:', error);
     });
-  }, []);
+  }, [id]);
   //Assim que apertamos o botão para deletar enviamos uma solicitação de delete para o endereço ${apiURL}/post/${id}
   const DeletePost = async () => {
     const confirmed = window.confirm(
