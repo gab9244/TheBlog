@@ -22,9 +22,7 @@ const PostPage = () => {
   useEffect(() => {
     fetch(`${apiURL}/post/${id}`, {
       credentials: 'include', // This ensures cookies are sent
-      headers: {
-        'Content-Type': 'application/json',
-      },
+
     })
     .then((response) => {
       if (!response.ok) {
@@ -38,7 +36,7 @@ const PostPage = () => {
     .catch((error) => {
       console.error('There was a problem with your fetch operation:', error);
     });
-  }, [id]);
+  }, []);
   //Assim que apertamos o botão para deletar enviamos uma solicitação de delete para o endereço ${apiURL}/post/${id}
   const DeletePost = async () => {
     const confirmed = window.confirm(
